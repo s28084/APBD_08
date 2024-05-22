@@ -340,7 +340,9 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Dept> Task14()
         {
-            IEnumerable<Dept> result = null;
+            IEnumerable<Dept> result = Depts.Where(dept => Emps.Count(emp => emp.Deptno == dept.Deptno) == 5 ||
+                                                           Emps.Count(emp => emp.Deptno == dept.Deptno) == 0)
+                                            .OrderBy(dept => dept.Dname);
             //result =
             return result;
         }

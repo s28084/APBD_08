@@ -251,7 +251,9 @@ namespace Exercise6
         /// </summary>
         public static Emp Task9()
         {
-            Emp result = null;
+            Emp result = Emps.Where(emp => emp.Job == "Frontend programmer")
+                                .OrderByDescending(emp => emp.HireDate)
+                                .FirstOrDefault();
             return result;
         }
 
@@ -292,7 +294,13 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task11()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.GroupBy(emp => emp.Deptno)
+                                            .Where(gr => gr.Count() > 1)
+                                            .Select(gr => new
+                                            {
+                                                name = Depts.FirstOrDefault(dept => dept.Deptno == gr.Key).Dname,
+                                                numOfEmployees = gr.Count()
+                                            });
             return result;
         }
 
@@ -338,5 +346,10 @@ namespace Exercise6
     public static class CustomExtensionMethods
     {
         //Put your extension methods here
+        //Task12
+        public static IEnumerable<Emp> GetEmpsWithSubSubordinates(this IEnumerable<Emp> Emps)
+        {
+            var result = Emps.Where()
+        }
     }
 }

@@ -164,7 +164,9 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Emp> Task1()
         {
-            IEnumerable<Emp> result = null;
+            IEnumerable<Emp> result = from emp in Emps
+                                        where emp.Job.Equals("Backend programmer")
+                                        select emp;
             return result;
         }
 
@@ -212,7 +214,7 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task6()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.Join(Depts, emp => emp.Deptno, dept => dept.Deptno, (emp, dept) => new {emp.Ename, emp.Job, dept.Dname});
             return result;
         }
 
@@ -221,7 +223,11 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task7()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.GroupBy(e => e.Job).Select(e => new
+            {
+                Praca = e.Key,
+                LiczbaPracownikow = e.Count()
+            });
             return result;
         }
 
@@ -252,7 +258,20 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task10()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.Select(e => new
+            {
+                e.Ename,
+                Job = (string?)e.Job,
+                e.HireDate
+            }).Union(new []
+            {
+                new
+                {
+                    Ename = "Brak wartości",
+                    Job = (string?)null,
+                    HireDate = (DateTime?)null
+                }
+            });
             return result;
         }
 
@@ -282,7 +301,7 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Emp> Task12()
         {
-            IEnumerable<Emp> result = null;
+            IEnumerable<Emp> result = Emps.Where(e1 => Emps.Any(e2 => e2.Mgr?.Empno == e1.Empno));
             return result;
         }
 

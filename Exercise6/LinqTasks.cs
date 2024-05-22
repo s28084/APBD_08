@@ -207,7 +207,7 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task5()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.Select(emp => new {Nazwisko = emp.Ename, Praca = emp.Job});
             return result;
         }
 
@@ -241,7 +241,7 @@ namespace Exercise6
         /// </summary>
         public static bool Task8()
         {
-            bool result = false;
+            bool result = Emps.Any(emp => emp.Job == "Backend programmer");
             return result;
         }
 

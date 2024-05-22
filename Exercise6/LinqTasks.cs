@@ -313,7 +313,7 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Emp> Task12()
         {
-            IEnumerable<Emp> result = Emps.Where(e1 => Emps.Any(e2 => e2.Mgr?.Empno == e1.Empno));
+            IEnumerable<Emp> result = Emps.GetEmpsWithSubSubordinates();
             return result;
         }
 
@@ -326,7 +326,10 @@ namespace Exercise6
         /// </summary>
         public static int Task13(int[] arr)
         {
-            int result = 0;
+            int result = arr.GroupBy(num => num)
+                            .Where(numGr => numGr
+                            .Count() % 2 != 0).Select(numGr => numGr.Key)
+                            .FirstOrDefault();
             //result=
             return result;
         }
@@ -349,7 +352,9 @@ namespace Exercise6
         //Task12
         public static IEnumerable<Emp> GetEmpsWithSubSubordinates(this IEnumerable<Emp> Emps)
         {
-            var result = Emps.Where()
+            var result = Emps.Where(e1 => Emps.Any(e2 => e2.Mgr?.Empno == e1.Empno))
+                                                .OrderBy(emp => emp.Ename).ThenByDescending(emp => emp.Salary);
+            return result;
         }
     }
 }

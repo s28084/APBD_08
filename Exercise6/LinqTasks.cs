@@ -1,4 +1,5 @@
-﻿using Exercise6.Models;
+﻿using System.Security.Cryptography;
+using Exercise6.Models;
 
 namespace Exercise6
 {
@@ -165,7 +166,7 @@ namespace Exercise6
         public static IEnumerable<Emp> Task1()
         {
             IEnumerable<Emp> result = from emp in Emps
-                                        where emp.Job.Equals("Backend programmer")
+                                        where emp.Job == "Backend programmer"
                                         select emp;
             return result;
         }
@@ -175,7 +176,10 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Emp> Task2()
         {
-            IEnumerable<Emp> result = null;
+            IEnumerable<Emp> result = from emp in Emps
+                                        where emp.Job == "Frontend programmer" && emp.Salary > 1000
+                                        orderby emp.Ename descending
+                                        select emp;
             return result;
         }
 
